@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Farah Art</title>
+
+<style>
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+body{
+
+    background:#080808;
+
+    color:white;
+
+    font-family:Inter,Arial,sans-serif;
+
+}
+
+/* HERO */
+
+header{
+
+    position:relative;
+
+    min-height:55vh;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 10%;
+
+    overflow:hidden;
+
+    background:#050505;
+
+}
+
+/* animated keffiyeh pattern */
+
+header::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    opacity:.12;
+
+    background:
+
+    repeating-linear-gradient(
+
+        45deg,
+
+        transparent 0 20px,
+
+        rgba(255,255,255,.7) 20px 22px
+
+    ),
+
+    repeating-linear-gradient(
+
+        -45deg,
+
+        transparent 0 20px,
+
+        rgba(255,255,255,.7) 20px 22px
+
+    );
+
+    background-size:120px 120px;
+
+    animation:movePattern 20s linear infinite;
+
+}
+
+@keyframes movePattern{
+
+    from{ background-position:0 0; }
+
+    to{ background-position:120px 120px; }
+
+}
+
+/* HERO TEXT */
+
+.hero-content{
+
+    position:relative;
+
+    z-index:2;
+
+    max-width:500px;
+
+}
+
+.hero-content h1{
+
+    font-size:4rem;
+
+    letter-spacing:4px;
+
+    margin-bottom:12px;
+
+}
+
+.hero-content p{
+
+    color:#b5b5b5;
+
+    line-height:1.6;
+
+}
+
+/* FLOATING IMAGE */
+
+.hero-image{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.hero-image img{
+
+    width:320px;
+
+    max-width:90vw;
+
+    border-radius:18px;
+
+    box-shadow:0 20px 60px rgba(0,0,0,.6);
+
+    animation:float 4s ease-in-out infinite;
+
+    transform:rotate(-2deg);
+
+}
+
+@keyframes float{
+
+    0%{ transform:translateY(0px) rotate(-2deg); }
+
+    50%{ transform:translateY(-12px) rotate(2deg); }
+
+    100%{ transform:translateY(0px) rotate(-2deg); }
+
+}
+
+/* PRODUCTS */
+
+.products{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:80px 20px;
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+    gap:30px;
+
+}
+
+.card{
+
+    background:#121212;
+
+    border:1px solid #232323;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.placeholder{
+
+    height:340px;
+
+    background:linear-gradient(135deg,#191919,#0f0f0f);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#666;
+
+    font-size:18px;
+
+}
+
+.content{
+
+    padding:25px;
+
+}
+
+.content h2{
+
+    margin-bottom:10px;
+
+}
+
+.content p{
+
+    color:#b0b0b0;
+
+    line-height:1.6;
+
+    margin-bottom:20px;
+
+}
+
+/* BUTTON */
+
+.btn{
+
+    display:inline-block;
+
+    text-decoration:none;
+
+    color:white;
+
+    padding:12px 22px;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+
+        135deg,
+
+        #7d0d18 0%,
+
+        #b11424 35%,
+
+        #d81e35 65%,
+
+        #ff4b5f 100%
+
+    );
+
+    box-shadow:0 10px 25px rgba(216,30,53,.25);
+
+    transition:.3s;
+
+    cursor:pointer;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+/* ORDER FORM */
+
+.order-section{
+
+    display:none;
+
+    max-width:700px;
+
+    margin:80px auto;
+
+    padding:20px;
+
+    text-align:center;
+
+}
+
+.order-section.active{
+
+    display:block;
+
+}
+
+.order-section form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+    margin-top:20px;
+
+}
+
+.order-section input,
+
+.order-section textarea{
+
+    padding:12px;
+
+    border-radius:10px;
+
+    border:none;
+
+    background:#1a1a1a;
+
+    color:white;
+
+}
+
+.order-section textarea{
+
+    min-height:110px;
+
+}
+
+/* FOOTER */
+
+footer{
+
+    text-align:center;
+
+    color:#777;
+
+    padding:40px 20px;
+
+    border-top:1px solid #1d1d1d;
+
+}
+
+/* SAFETY NOTE */
+
+.shipping-note{
+
+    margin-top:15px;
+
+    color:#999;
+
+    font-size:13px;
+
+    line-height:1.5;
+
+}
+
+@media (max-width:768px){
+
+    header{
+
+        flex-direction:column;
+
+        text-align:center;
+
+        padding:40px 20px;
+
+    }
+
+    .hero-content{
+
+        text-align:center;
+
+    }
+
+    .hero-image img{
+
+        width:260px;
+
+        margin-top:20px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="hero-content">
+
+        <h1>FARAH ART</h1>
+
+        <p>
+
+            Hand-drawn stickers and custom artwork inspired by identity,
+
+            culture and storytelling.
+
+        </p>
+
+    </div>
+
+    <div class="hero-image">
+
+        <img src="your-sticker-sheet.png" alt="Sticker Sheet">
+
+    </div>
+
+</header>
+
+<section class="products">
+
+    <!-- STICKERS -->
+
+    <div class="card">
+
+        <div class="placeholder">Your Sticker Photo</div>
+
+        <div class="content">
+
+            <h2>Palestine Sticker Sheet</h2>
+
+            <p>Hand-drawn stickers inspired by Palestinian culture, memory and identity.</p>
+
+            <button class="btn" onclick="openForm()">
+
+                Order Stickers
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- CUSTOM ART -->
+
+    <div class="card">
+
+        <div class="placeholder">Your Artwork</div>
+
+        <div class="content">
+
+            <h2>Custom Art</h2>
+
+            <p>Personalized illustrations created from your ideas, stories and memories.</p>
+
+            <a class="btn"
+
+               href="https://wa.me/YOURNUMBER?text=Hi! I want to request custom art 🎨%0A%0AName:%0AIdea:%0ASize:%0ADeadline:%0AReference images:"
+
+               target="_blank">
+
+               Request on WhatsApp
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ORDER FORM -->
+
+<section class="order-section" id="orderSection">
+
+    <h2>Sticker Order Form</h2>
+
+    <form id="orderForm">
+
+        <input type="text" id="name" placeholder="Full Name" required>
+
+        <input type="number" id="qty" placeholder="Quantity">
+
+        <input type="text" id="address" placeholder="Full Address" required>
+
+        <textarea id="notes" placeholder="Notes"></textarea>
+
+        <button class="btn" type="submit">Submit Order</button>
+
+    </form>
+
+    <div class="shipping-note">
+
+        📦 Shipping Safety Notice:<br><br>
+
+        Processing: 1–2 business days<br>
+
+        Delivery: 7–14 days<br><br>
+
+        💳 Payment: PayPal or Apple Pay<br>
+
+        ⚠️ Order is NOT confirmed until payment proof is sent<br>
+
+        🔁 Refund if not received within 30 days
+
+    </div>
+
+</section>
+
+<footer>
+
+©️ Farah Art
+
+</footer>
+
+<script>
+
+/* OPEN FORM */
+
+function openForm(){
+
+    document.getElementById("orderSection").classList.add("active");
+
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+
+}
+
+/* SUBMIT ORDER */
+
+document.getElementById("orderForm").addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    let name = document.getElementById("name").value;
+
+    let qty = document.getElementById("qty").value;
+
+    let address = document.getElementById("address").value;
+
+    let notes = document.getElementById("notes").value;
+
+    let message =
+
+`🧷 NEW ORDER RECEIVED
+
+Name: ${name}
+
+Quantity: ${qty}
+
+Address: ${address}
+
+Notes: ${notes}
+
+━━━━━━━━━━━━━━━
+
+💳 PAYMENT INSTRUCTIONS:
+
+Please complete payment via PayPal or Apple Pay.
+
+⚠️ IMPORTANT:
+
+Your order is NOT confirmed until payment proof is sent.
+
+━━━━━━━━━━━━━━━
+
+📦 DELIVERY:
+
+- Processing: 1–2 business days
+
+- Delivery: 7–14 days
+
+━━━━━━━━━━━━━━━
+
+🔁 REFUND POLICY:
+
+Refund available if not received within 30 days.
+
+━━━━━━━━━━━━━━━
+
+✔ After sending payment proof, your order will be confirmed.`;
+
+    // WhatsApp (YOU receive everything here)
+
+    window.open(
+
+        "https://wa.me/YOURNUMBER?text=" + encodeURIComponent(message),
+
+        "_blank"
+
+    );
+
+    // PayPal redirect
+
+    setTimeout(() => {
+
+        window.open("https://paypal.me/YOURPAYPALUSERNAME", "_blank");
+
+    }, 1200);
+
+});
+
+</script>
+
+</body>
+
+</html>
