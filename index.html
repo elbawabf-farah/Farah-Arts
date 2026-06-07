@@ -168,6 +168,71 @@ header::before{
 
 }
 
+    /* SLIDER (same style as your example) */
+
+.slider{
+
+    width:100%;
+
+    overflow:hidden;
+
+    padding:40px 0;
+
+    background:#050505;
+
+}
+
+.track{
+
+    display:flex;
+
+    gap:15px;
+
+    width:max-content;
+
+    animation:scroll 18s linear infinite;
+
+}
+
+.track img{
+
+    width:250px;
+
+    height:300px;
+
+    object-fit:cover;
+
+    border-radius:15px;
+
+    flex-shrink:0;
+
+    transition:0.3s;
+
+}
+
+.track img:hover{
+
+    transform:scale(1.05);
+
+}
+
+/* animation */
+
+@keyframes scroll{
+
+    0%{ transform:translateX(0); }
+
+    100%{ transform:translateX(-50%); }
+
+}
+
+/* pause on hover */
+
+.slider:hover .track{
+
+    animation-play-state:paused;
+
+}
 /* PRODUCTS */
 
 .products{
@@ -463,8 +528,39 @@ footer{
         </div>
 
     </div>
+<!-- SIMPLE SLIDER -->
 
+<section class="slider">
+
+  <div class="track">
+
+    <img src="images/1.png">
+
+    <img src="images/2.png">
+
+    <img src="images/3.png">
+
+    <img src="images/4.png">
+
+    <img src="images/5.png">
+
+    <!-- تكرار عشان loop -->
+
+    <img src="images/1.png">
+
+    <img src="images/2.png">
+
+    <img src="images/3.png">
+
+    <img src="images/4.png">
+
+    <img src="images/5.png">
+
+  </div>
+
+</section>
     <!-- CUSTOM ART -->
+    
 
     <div class="card">
 
