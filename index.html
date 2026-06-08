@@ -10,7 +10,11 @@
 
 <title>Farah Art</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
+
+/* ================= RESET ================= */
 
 *{
 
@@ -32,31 +36,33 @@ body{
 
 }
 
-/* ================= HEADER (FIXED LAYERS) ================= */
+/* ================= HEADER ================= */
 
 header{
 
     position:relative;
 
-    min-height:55vh;
+    min-height:80vh;
 
     display:flex;
 
-    justify-content:space-between;
+    flex-direction:column;
+
+    justify-content:center;
 
     align-items:center;
 
-    padding:0 10%;
+    text-align:center;
 
-    overflow:hidden;
+    gap:25px;
+
+    padding:60px 20px;
 
     background:#050505;
 
-    z-index:1;
+    overflow:hidden;
 
 }
-
-/* background pattern */
 
 header::before{
 
@@ -70,51 +76,29 @@ header::before{
 
     background:
 
-    repeating-linear-gradient(
+    repeating-linear-gradient(45deg, transparent 0 20px, rgba(255,255,255,.7) 20px 22px),
 
-        45deg,
-
-        transparent 0 20px,
-
-        rgba(255,255,255,.7) 20px 22px
-
-    ),
-
-    repeating-linear-gradient(
-
-        -45deg,
-
-        transparent 0 20px,
-
-        rgba(255,255,255,.7) 20px 22px
-
-    );
+    repeating-linear-gradient(-45deg, transparent 0 20px, rgba(255,255,255,.7) 20px 22px);
 
     background-size:120px 120px;
 
     animation:movePattern 20s linear infinite;
 
-    z-index:0; /* 👈 خلف كل شيء */
-
 }
 
 @keyframes movePattern{
 
-    from{ background-position:0 0; }
+    from{background-position:0 0;}
 
-    to{ background-position:120px 120px; }
+    to{background-position:120px 120px;}
 
 }
 
-/* HERO TEXT */
-
 .hero-content{
 
-    position:relative;
+    z-index:2;
 
-    z-index:2; /* 👈 فوق الخلفية */
-
-    max-width:500px;
+    max-width:650px;
 
 }
 
@@ -122,53 +106,39 @@ header::before{
 
     font-size:4rem;
 
-    letter-spacing:4px;
+    font-family:'Playfair Display', serif;
 
-    margin-bottom:12px;
+    letter-spacing:4px;
 
 }
 
 .hero-content p{
 
-    color:#b5b5b5;
+    color:#cfcfcf;
 
-    line-height:1.6;
-
-}
-
-/* HERO IMAGE (FLOATING) */
-
-.hero-image{
-
-    position:relative;
-
-    z-index:2;
+    margin-top:10px;
 
 }
 
 .hero-image img{
 
-    width:320px;
+    width:380px;
 
     max-width:90vw;
 
     border-radius:18px;
 
-    box-shadow:0 20px 60px rgba(0,0,0,.6);
-
     animation:float 4s ease-in-out infinite;
-
-    transform:rotate(-2deg);
 
 }
 
 @keyframes float{
 
-    0%{ transform:translateY(0px) rotate(-2deg); }
+    0%{transform:translateY(0);}
 
-    50%{ transform:translateY(-12px) rotate(2deg); }
+    50%{transform:translateY(-12px);}
 
-    100%{ transform:translateY(0px) rotate(-2deg); }
+    100%{transform:translateY(0);}
 
 }
 
@@ -190,6 +160,8 @@ header::before{
 
 }
 
+/* ================= CARD ================= */
+
 .card{
 
     background:#121212;
@@ -200,19 +172,47 @@ header::before{
 
     overflow:hidden;
 
-    transition:.3s;
+}
+
+/* ================= MARQUEE (STICKERS ONLY) ================= */
+
+.marquee{
+
+    background:#b11424;
+
+    overflow:hidden;
+
+    white-space:nowrap;
+
+    padding:3px 0;
 
 }
 
-.card:hover{
+.marquee-track{
 
-    transform:translateY(-8px);
+    display:inline-block;
+
+    animation:scrollText 12s linear infinite;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    letter-spacing:2px;
 
 }
 
-/* sticker image */
+@keyframes scrollText{
 
-.card > img{
+    from{transform:translateX(0);}
+
+    to{transform:translateX(-50%);}
+
+}
+
+/* ================= IMAGES ================= */
+
+.card img{
 
     width:100%;
 
@@ -220,35 +220,77 @@ header::before{
 
     object-fit:cover;
 
-    display:block;
+}
+
+/* ================= CONTENT ================= */
+
+.content{
+
+    padding:25px;
 
 }
 
-/* slider */
+.content h2{
 
-.card-slider{
+    font-family:'Playfair Display', serif;
+
+    margin-bottom:10px;
+
+}
+
+.content p{
+
+    color:#b0b0b0;
+
+    margin-bottom:20px;
+
+}
+
+/* ================= BUTTON ================= */
+
+.btn{
+
+    display:inline-block;
+
+    padding:12px 22px;
+
+    border-radius:12px;
+
+    background:linear-gradient(135deg,#7d0d18,#ff4b5f);
+
+    color:white;
+
+    border:none;
+
+    text-decoration:none;
+
+    cursor:pointer;
+
+}
+
+/* ================= CUSTOM SLIDER ================= */
+
+.custom-slider{
 
     width:100%;
 
-    height:340px;
-
     overflow:hidden;
+
+    height:340px;
 
 }
 
-.card-track{
+.custom-track{
 
     display:flex;
 
-    width:max-content;
+    width:calc(260px * 4);
 
-    height:340px;
-
-    animation:scroll 18s linear infinite;
+    animation:slideCustom 10s linear infinite;
 
 }
 
-.card-track img{
+.custom-track img{
 
     width:260px;
 
@@ -260,7 +302,7 @@ header::before{
 
 }
 
-@keyframes scroll{
+@keyframes slideCustom{
 
     0%{transform:translateX(0);}
 
@@ -268,107 +310,101 @@ header::before{
 
 }
 
-.card-slider:hover .card-track{
+.custom-slider:hover .custom-track{
 
     animation-play-state:paused;
 
 }
 
-/* content */
+/* ================= INFO ================= */
 
-.content{
+.info-section{
 
-    padding:25px;
+    max-width:1100px;
+
+    margin:100px auto;
+
+    padding:0 20px;
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+    gap:20px;
 
 }
 
-.content h2{
+.info-box{
+
+    background:#121212;
+
+    border:1px solid #232323;
+
+    border-radius:16px;
+
+    padding:22px;
+
+}
+
+.info-box h3{
+
+    font-family:'Playfair Display', serif;
 
     margin-bottom:10px;
 
 }
 
-.content p{
+.info-box p{
 
-    color:#b0b0b0;
+    color:#aaa;
+
+    font-size:14px;
 
     line-height:1.6;
 
-    margin-bottom:20px;
-
 }
 
-/* button */
+/* ================= MODAL ================= */
 
-.btn{
-
-    display:inline-block;
-
-    text-decoration:none;
-
-    color:white;
-
-    padding:12px 22px;
-
-    border-radius:12px;
-
-    background:linear-gradient(135deg,#7d0d18,#ff4b5f);
-
-    box-shadow:0 10px 25px rgba(216,30,53,.25);
-
-    transition:.3s;
-
-    cursor:pointer;
-
-}
-
-.btn:hover{
-
-    transform:translateY(-2px);
-
-}
-
-/* ================= ORDER ================= */
-
-.order-section{
+.modal{
 
     display:none;
 
-    max-width:700px;
+    position:fixed;
 
-    margin:80px auto;
+    inset:0;
 
-    padding:20px;
+    background:rgba(0,0,0,.7);
 
-    text-align:center;
+    justify-content:center;
 
-}
-
-.order-section.active{
-
-    display:block;
+    align-items:center;
 
 }
 
-.order-section form{
+.modal-content{
+
+    background:#121212;
+
+    padding:25px;
+
+    border-radius:16px;
+
+    width:350px;
 
     display:flex;
 
     flex-direction:column;
 
-    gap:12px;
-
-    margin-top:20px;
+    gap:10px;
 
 }
 
-.order-section input,
+input, textarea{
 
-.order-section textarea{
+    padding:10px;
 
-    padding:12px;
-
-    border-radius:10px;
+    border-radius:8px;
 
     border:none;
 
@@ -378,61 +414,35 @@ header::before{
 
 }
 
-/* shipping */
+.total{
 
-.shipping-note{
-
-    margin-top:15px;
-
-    color:#999;
-
-    font-size:13px;
-
-    line-height:1.5;
+    font-weight:bold;
 
 }
 
-/* footer */
+/* ================= SUCCESS ================= */
+
+.success{
+
+    display:none;
+
+    text-align:center;
+
+    padding:50px;
+
+}
+
+/* ================= FOOTER ================= */
 
 footer{
 
     text-align:center;
 
+    padding:50px;
+
     color:#777;
 
-    padding:40px 20px;
-
     border-top:1px solid #1d1d1d;
-
-}
-
-/* mobile */
-
-@media (max-width:768px){
-
-    header{
-
-        flex-direction:column;
-
-        text-align:center;
-
-        padding:40px 20px;
-
-    }
-
-    .hero-image img{
-
-        width:260px;
-
-    }
-
-    .card-track img{
-
-        width:220px;
-
-        height:300px;
-
-    }
 
 }
 
@@ -442,173 +452,247 @@ footer{
 
 <body>
 
+<!-- ================= HEADER ================= -->
+
 <header>
 
-    <div class="hero-content">
+<div class="hero-content">
 
-        <h1>FARAH ART</h1>
+    <h1>FARAH ART</h1>
 
-        <p>Hand-drawn stickers and custom artwork inspired by identity, culture and storytelling.</p>
+    <p>Small pieces of memory, drawn by hand — turned into something you can keep.</p>
 
-    </div>
+</div>
 
-    <div class="hero-image">
+<div class="hero-image">
 
-        <img src="images/86385E3E-840F-4E12-B7F6-F7D2F041074C.png">
+    <img src="images/hero.png">
 
-    </div>
+</div>
 
 </header>
 
+<!-- ================= PRODUCTS ================= -->
+
 <section class="products">
 
-    <!-- STICKERS -->
+<!-- STICKERS -->
 
-    <div class="card">
+<div class="card">
 
-        <img src="images/Stickerm.png">
+    <div class="marquee">
 
-        <div class="content">
+        <div class="marquee-track">
 
-            <h2>Palestine Sticker Sheet</h2>
-
-            <p>Hand-drawn stickers inspired by Palestinian culture.</p>
-
-            <button class="btn" onclick="openForm()">Order Stickers</button>
+            STICKERS MADE WITH LOVE • STICKERS MADE WITH LOVE •
 
         </div>
 
     </div>
 
-    <!-- CUSTOM ART SLIDER -->
+    <img src="images/Stickerm.png">
 
-    <div class="card">
+    <div class="content">
 
-        <div class="card-slider">
+        <h2>Palestine Sticker Sheet</h2>
 
-            <div class="card-track">
+        <p>Hand-drawn stickers inspired by Palestinian culture.</p>
 
-                <img src="images/IMG_8416.jpeg">
+        <button class="btn" onclick="openForm()">Order Stickers</button>
 
-                <img src="images/IMG_8415.jpeg">
+    </div>
 
-                <img src="images/IMG_8414.jpeg">
+</div>
 
-                <img src="images/IMG_8413.jpeg">
+<!-- CUSTOM ART -->
 
-                <img src="images/1.png">
+<div class="card">
 
-                <img src="images/2.png">
+    <div class="custom-slider">
 
-                <img src="images/3.png">
+        <div class="custom-track">
 
-                <img src="images/4.png">
+            <img src="images/1.png">
 
-            </div>
+            <img src="images/2.png">
 
-        </div>
+            <img src="images/3.png">
 
-        <div class="content">
-
-            <h2>Custom Art</h2>
-
-            <p>Personalized illustrations created from your ideas and memories.</p>
-
-            <a class="btn" href="https://wa.me/YOURNUMBER" target="_blank">
-
-                Request on WhatsApp
-
-            </a>
+            <img src="images/4.png">
 
         </div>
 
     </div>
+
+    <div class="content">
+
+        <h2>Custom Art</h2>
+
+        <p>Turn your idea or memory into a handmade illustration.</p>
+
+        <a class="btn"
+
+           href="https://wa.me/YOURNUMBER?text=Hi%20I%20want%20a%20custom%20art%20illustration"
+
+           target="_blank">
+
+            Request Custom Art
+
+        </a>
+
+    </div>
+
+</div>
 
 </section>
 
-<!-- ORDER -->
+<!-- ================= INFO ================= -->
 
-<section class="order-section" id="orderSection">
+<section class="info-section">
 
-    <h2>Sticker Order Form</h2>
+<div class="info-box">
 
-    <form id="orderForm">
+    <h3>About Me</h3>
 
-        <input type="text" id="name" placeholder="Full Name" required>
+    <p>I turn memories and emotions into handmade illustrations and sticker art.</p>
 
-        <input type="number" id="qty" placeholder="Quantity">
+</div>
 
-        <input type="text" id="address" placeholder="Address" required>
+<div class="info-box">
 
-        <textarea id="notes" placeholder="Notes"></textarea>
+    <h3>Shipping</h3>
 
-        <button class="btn" type="submit">Submit Order</button>
+    <p>Delivery time: 7–21 days depending on location.</p>
 
-    </form>
+</div>
 
-    <div class="shipping-note">
+<div class="info-box">
 
-        📦 Delivery: 7–21 days<br>
+    <h3>Refund</h3>
 
-        💳 Payment: PayPal or Apple Pay<br>
+    <p>Refund only if order is not delivered within 30 days or arrives damaged.</p>
 
-        ⚠️ Order confirmed after payment proof
+</div>
 
-    </div>
+<div class="info-box">
+
+    <h3>Privacy</h3>
+
+    <p>Your data is only used for order processing and never shared.</p>
+
+</div>
 
 </section>
+
+<!-- ================= MODAL ================= -->
+
+<div class="modal" id="modal">
+
+<div class="modal-content">
+
+<h3>Sticker Order</h3>
+
+<input id="name" placeholder="Full Name">
+
+<textarea id="address" placeholder="Full Shipping Address"></textarea>
+
+<input id="qty" type="number" placeholder="Quantity (10$ each)" oninput="calcTotal()">
+
+<textarea id="note" placeholder="Note"></textarea>
+
+<div class="total" id="total">Total: $0</div>
+
+<button class="btn" onclick="goPay()">Pay with PayPal</button>
+
+<button onclick="closeForm()" style="background:#333;padding:10px;border-radius:8px;">Cancel</button>
+
+</div>
+
+</div>
+
+<!-- ================= SUCCESS ================= -->
+
+<div class="success" id="success">
+
+<h1>✅ Order received</h1>
+
+<p>Thank you for your purchase!</p>
+
+</div>
 
 <footer>
 
-©️ Farah Art
+©️ Farah Art — Handmade with intention
 
 </footer>
 
 <script>
 
+let shipping = 0;
+
 function openForm(){
 
-    document.getElementById("orderSection").classList.add("active");
+    document.getElementById("modal").style.display="flex";
 
-    window.scrollTo({top:document.body.scrollHeight, behavior:"smooth"});
+    shipping = Math.floor(Math.random()*3)+3;
+
+    setTimeout(()=>document.getElementById("name").focus(),100);
+
+    calcTotal();
 
 }
 
-document.getElementById("orderForm").addEventListener("submit", function(e){
+function closeForm(){
 
-    e.preventDefault();
+    document.getElementById("modal").style.display="none";
 
-    let name = document.getElementById("name").value;
+}
+
+function calcTotal(){
+
+    let q = parseInt(document.getElementById("qty").value) || 0;
+
+    let total = (q * 10) + (q>0 ? shipping : 0);
+
+    document.getElementById("total").innerText =
+
+    `Total: $${total} (Shipping $${shipping})`;
+
+    return total;
+
+}
+
+function goPay(){
+
+    let name = document.getElementById("name").value.trim();
+
+    let address = document.getElementById("address").value.trim();
 
     let qty = document.getElementById("qty").value;
 
-    let address = document.getElementById("address").value;
+    if(!name || !address || qty<=0){
 
-    let notes = document.getElementById("notes").value;
+        alert("Please fill all fields");
 
-    let msg = `
+        return;
 
-NEW ORDER
+    }
 
-Name: ${name}
+    let total = calcTotal();
 
-Qty: ${qty}
+    let url = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=YOUR_PAYPAL_USERNAME&amount=${total}&currency_code=USD`;
 
-Address: ${address}
+    window.open(url,"_blank");
 
-Notes: ${notes}
+    setTimeout(()=>{
 
-`;
+        closeForm();
 
-    window.open(
+        document.getElementById("success").style.display="block";
 
-        "https://wa.me/YOURNUMBER?text=" + encodeURIComponent(msg),
+    },3000);
 
-        "_blank"
-
-    );
-
-});
+}
 
 </script>
 
