@@ -174,7 +174,7 @@ header::before{
 
 }
 
-/* ================= MARQUEE (STICKERS ONLY) ================= */
+/* ================= MARQUEE ================= */
 
 .marquee{
 
@@ -420,18 +420,6 @@ input, textarea{
 
 }
 
-/* ================= SUCCESS ================= */
-
-.success{
-
-    display:none;
-
-    text-align:center;
-
-    padding:50px;
-
-}
-
 /* ================= FOOTER ================= */
 
 footer{
@@ -452,8 +440,6 @@ footer{
 
 <body>
 
-<!-- ================= HEADER ================= -->
-
 <header>
 
 <div class="hero-content">
@@ -471,8 +457,6 @@ footer{
 </div>
 
 </header>
-
-<!-- ================= PRODUCTS ================= -->
 
 <section class="products">
 
@@ -530,11 +514,7 @@ footer{
 
         <p>Turn your idea or memory into a handmade illustration.</p>
 
-        <a class="btn"
-
-           href="https://wa.me/YOURNUMBER?text=Hi%20I%20want%20a%20custom%20art%20illustration"
-
-           target="_blank">
+        <a class="btn" href="https://wa.me/YOURNUMBER" target="_blank">
 
             Request Custom Art
 
@@ -546,45 +526,43 @@ footer{
 
 </section>
 
-<!-- ================= INFO ================= -->
-
 <section class="info-section">
 
 <div class="info-box">
 
-    <h3>About Me</h3>
+<h3>About Me</h3>
 
-    <p>I turn memories and emotions into handmade illustrations and sticker art.</p>
-
-</div>
-
-<div class="info-box">
-
-    <h3>Shipping</h3>
-
-    <p>Delivery time: 7–21 days depending on location.</p>
+<p>I turn memories and emotions into handmade illustrations and sticker art.</p>
 
 </div>
 
 <div class="info-box">
 
-    <h3>Refund</h3>
+<h3>Shipping</h3>
 
-    <p>Refund only if order is not delivered within 30 days or arrives damaged.</p>
+<p>Delivery time: 7–21 days depending on location.</p>
 
 </div>
 
 <div class="info-box">
 
-    <h3>Privacy</h3>
+<h3>Refund</h3>
 
-    <p>Your data is only used for order processing and never shared.</p>
+<p>Refund only if order is not delivered or arrives damaged.</p>
+
+</div>
+
+<div class="info-box">
+
+<h3>Privacy</h3>
+
+<p>Your data is only used for order processing.</p>
 
 </div>
 
 </section>
 
-<!-- ================= MODAL ================= -->
+<!-- MODAL -->
 
 <div class="modal" id="modal">
 
@@ -610,15 +588,21 @@ footer{
 
 </div>
 
-<!-- ================= SUCCESS ================= -->
+<!-- FORMSPREE -->
 
-<div class="success" id="success">
+<form id="orderForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
 
-<h1>✅ Order received</h1>
+<input type="hidden" name="name" id="h_name">
 
-<p>Thank you for your purchase!</p>
+<input type="hidden" name="address" id="h_address">
 
-</div>
+<input type="hidden" name="qty" id="h_qty">
+
+<input type="hidden" name="note" id="h_note">
+
+<input type="hidden" name="total" id="h_total">
+
+</form>
 
 <footer>
 
@@ -628,15 +612,11 @@ footer{
 
 <script>
 
-let shipping = 0;
+let shipping = 5;
 
 function openForm(){
 
     document.getElementById("modal").style.display="flex";
-
-    shipping = Math.floor(Math.random()*3)+3;
-
-    setTimeout(()=>document.getElementById("name").focus(),100);
 
     calcTotal();
 
@@ -652,11 +632,11 @@ function calcTotal(){
 
     let q = parseInt(document.getElementById("qty").value) || 0;
 
-    let total = (q * 10) + (q>0 ? shipping : 0);
+    let total = (q * 10) + (q ? shipping : 0);
 
     document.getElementById("total").innerText =
 
-    `Total: $${total} (Shipping $${shipping})`;
+    `Total: $${total}`;
 
     return total;
 
@@ -668,9 +648,11 @@ function goPay(){
 
     let address = document.getElementById("address").value.trim();
 
-    let qty = document.getElementById("qty").value;
+    let qty = parseInt(document.getElementById("qty").value);
 
-    if(!name || !address || qty<=0){
+    let note = document.getElementById("note").value;
+
+    if(!name || !address || qty <= 0){
 
         alert("Please fill all fields");
 
@@ -680,81 +662,25 @@ function goPay(){
 
     let total = calcTotal();
 
+    document.getElementById("h_name").value = name;
+
+    document.getElementById("h_address").value = address;
+
+    document.getElementById("h_qty").value = qty;
+
+    document.getElementById("h_note").value = note;
+
+    document.getElementById("h_total").value = total;
+
+    document.getElementById("orderForm").submit();
+
     let url = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=YOUR_PAYPAL_USERNAME&amount=${total}&currency_code=USD`;
 
     window.open(url,"_blank");
 
-    setTimeout(()=>{
-
-        closeForm();
-
-        document.getElementById("success").style.display="block";
-
-    },3000);
+    closeForm();
 
 }
-<form id="orderForm" action="https://formspree.io/f/mykajnrl" method="POST">
-
-  <input type="hidden" name="transaction_id" id="transaction_id">
-
-  <input type="hidden" name="email" id="email">
-
-</form>
-
-<div id="paypal-button-container"></div>
-
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
-
-<script>
-
-paypal.Buttons({
-
-    createOrder: (data, actions) => {
-
-        return actions.order.create({
-
-            purchase_units: [{
-
-                amount: {
-
-                    value: '10.00'
-
-                }
-
-            }]
-
-        });
-
-    },
-
-    onApprove: (data, actions) => {
-
-        return actions.order.capture().then((details) => {
-
-            // 1. ناخذ البيانات من PayPal
-
-            const transactionID = details.id;
-
-            const email = details.payer.email_address;
-
-            // 2. نحطهم داخل الفورم
-
-            document.getElementById("transaction_id").value = transactionID;
-
-            document.getElementById("email").value = email;
-
-            // 3. نرسلهم لـ Formspree
-
-            document.getElementById("orderForm").submit();
-
-            alert("Payment Successful 🎉");
-
-        });
-
-    }
-
-}).render('#paypal-button-container');
-
 
 </script>
 
