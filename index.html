@@ -693,6 +693,68 @@ function goPay(){
     },3000);
 
 }
+<form id="orderForm" action="https://formspree.io/f/mykajnrl" method="POST">
+
+  <input type="hidden" name="transaction_id" id="transaction_id">
+
+  <input type="hidden" name="email" id="email">
+
+</form>
+
+<div id="paypal-button-container"></div>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
+
+<script>
+
+paypal.Buttons({
+
+    createOrder: (data, actions) => {
+
+        return actions.order.create({
+
+            purchase_units: [{
+
+                amount: {
+
+                    value: '10.00'
+
+                }
+
+            }]
+
+        });
+
+    },
+
+    onApprove: (data, actions) => {
+
+        return actions.order.capture().then((details) => {
+
+            // 1. ناخذ البيانات من PayPal
+
+            const transactionID = details.id;
+
+            const email = details.payer.email_address;
+
+            // 2. نحطهم داخل الفورم
+
+            document.getElementById("transaction_id").value = transactionID;
+
+            document.getElementById("email").value = email;
+
+            // 3. نرسلهم لـ Formspree
+
+            document.getElementById("orderForm").submit();
+
+            alert("Payment Successful 🎉");
+
+        });
+
+    }
+
+}).render('#paypal-button-container');
+
 
 </script>
 
